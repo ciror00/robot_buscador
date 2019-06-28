@@ -7,12 +7,12 @@
 
 
 class MQTT{
-  char* ssid;// = "CYS";
-  char* password;// = "Informatica";
-  char* mqtt_server;// = "192.168.1.177";
+  char* ssid;
+  char* password;
+  char* mqtt_server;
 
   WiFiClient esp;
-  PubSubClient client;// = PubSubClient client(esp);
+  PubSubClient client;
 
   IPAddress ip;
 
