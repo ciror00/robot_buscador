@@ -37,9 +37,8 @@ void MQTT::Reconectar(char* topic) {
       clientId += String(random(0xffff), HEX);
       if (this->client.connect(clientId.c_str())) {
         Serial.println("Conectado");
-        this->client.publish(topic, "PING");
-        delay(1000);
-        this->client.subscribe(topic);
+        //this->client.publish(topic, "PING");
+        //this->client.subscribe(topic);
       }else{
         Serial.print("Error, state: ");
         Serial.print(client.state());
@@ -59,24 +58,6 @@ void MQTT::Publicar(char* topic, char* mensaje){
     Serial.println(mensaje);
     this->client.publish(topic, mensaje);
   }
-  /*
-  long now = millis();
-  char pub[50];
-  char top[50];
-  mensaje.toCharArray(pub, 50);
-  if (this->client.connect("ESP8266Client")) {
-    if (now - this->lastMsg > 2000) {
-      this->lastMsg = now;
-      this->client.publish(topic, pub);
-    }
-  }else{
-    Serial.print("Error=");
-    Serial.print(client.state());
-    Serial.println(" intentando nuevamente en 5 segundos.");
-    // Wait 5 seconds before retrying
-    delay(5000);
-  }
-  */
 }
 
 void MQTT::Suscribir(char* topic){
