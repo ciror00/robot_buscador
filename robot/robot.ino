@@ -1,35 +1,44 @@
 #include "robot.h"
 
-#define PROD false
-#define SERIAL_BEGIN if(!PROD) Serial.begin(115200)
-#define SERIAL_PRINT(MESSAGE) if(!PROD) Serial.println(MESSAGE)
-
 Auto autito;
 Distancia distancias;
 MQTT mqtt;
-
+Luz infrarojo;
 
 void setup(){
-  SERIAL_PRINT("Inicio");
+  Serial.begin(115200);
   autito.begin();
   distancias.begin(trigger, echo);
+  infrarojo.begin(luz);
   mqtt.begin(red, pass, server);
   mqtt.IP();
-  mqtt.Reconectar();
-  mqtt.Publicar("Hola mundo");
+  mqtt.Reconectar(topic_root);
+  //mqtt.Publicar("Hola mundo");
 }
 
 void loop(){
-  detectar = distancias.Medicion();
-  if(detectar < 10){
+  linea = infrarojo.Detectar();
+  medida = distancias.Medicion();
+  sprintf(distancia, "%d cm", medida); Serial.println(distancia);
+  if(medida < 10){
     autito.Detener();
+    Serial.println("Objeto detectado. Avanzando");
+    delay(2000);
     autito.Adelante();
-  }else{
+    while(linea == true){
+      linea = infrarojo.Detectar();
+      delay(1000);
+    }
+    delay(1000);
+    autito.Detener();
+    delay(1000);
+    autito.Atras();
+    delay(2000);
+    autito.Detener();
+    Serial.println("Objeto quitado. Publicando");
+    mqtt.Reconectar(topic_root);
+    mqtt.Publicar(topic_publish, "Objeto quitado");
+    delay(2000);
     autito.Girar();
   }
-  attachInterrupt(digitalPinToInterrupt(LUZ), encontrar, FALLING);
-}
-
-void encontrar(){
-  autito.Volver();
 }

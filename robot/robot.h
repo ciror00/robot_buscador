@@ -27,13 +27,21 @@ const int ENB = D3;
 const int IN3 = D4;
 const int IN4 = D5;
 
-const int trigger = D1;   //Pin digital 2 para el Trigger del sensor
-const int echo = D0;   //Pin digital 3 para el Echo del sensor
+const int trigger = D0;
+const int echo = D1;
 
-const int LUZ = D2;
+const int luz = D2;
 
 char* red = "";
 char* pass = "";
 char* server = "";
 
-long detectar;
+char* topic_root = "servidor";
+char* topic_publish = "servidor/publicaciones";
+char* topic_subscribe = "servidor/notificaciones";
+
+long medida;
+
+char distancia[7];
+
+boolean linea;
