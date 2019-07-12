@@ -3,15 +3,15 @@
 
 
 class Auto{
-  // Motor A
+  // Motor Derecho
   const int ENA = D8;
   const int IN1 = D7;
   const int IN2 = D6;
 
-  // Motor B
+  // Motor Izquierdo
   const int ENB = D3;
-  const int IN3 = D4;
-  const int IN4 = D5;
+  const int IN3 = D5;
+  const int IN4 = D4;
 
   public:
     Auto() = default;

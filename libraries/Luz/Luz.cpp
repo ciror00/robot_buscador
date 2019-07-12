@@ -3,14 +3,16 @@
 
 void Luz::begin(const int pin){
   this->pin = pin;
+  this->value = 0;
 }
 
 boolean Luz::Detectar(){
-  int value = 0;
-  value = digitalRead(this->pin);
-  if (value == HIGH) {
+  this->value = digitalRead(this->pin);
+  if (this->value == HIGH) {
+    Serial.println("Luz TRUE");
     return true;
   }else{
+    Serial.println("Luz FALSE");
     return false;
   }
   delay(1000);

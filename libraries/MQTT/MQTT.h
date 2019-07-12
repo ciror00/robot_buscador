@@ -23,8 +23,9 @@ public:
     MQTT() = default;
     void begin(char* ssid, char* password, char* mqtt);
     String IP();
-    void Reconectar();
-    void Publicar(String mensaje);
+    void Reconectar(char* topic);
+    void Publicar(char* topic, char* mensaje);
+    void Suscribir(char* topic);
     ~MQTT() = default;
 };
 

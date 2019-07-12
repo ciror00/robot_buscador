@@ -11,57 +11,61 @@ void Auto::begin(){
 }
 
 void Auto::Adelante(){
-  //Direccion motor A
-  digitalWrite (IN1, HIGH);
-  digitalWrite (IN2, LOW);
-  analogWrite (ENA, 255); //Velocidad motor A
-  //Direccion motor B
-  digitalWrite (IN3, HIGH);
-  digitalWrite (IN4, LOW);
-  analogWrite (ENB, 255); //Velocidad motor B
+  Serial.println("Adelante");
+  digitalWrite(ENA, HIGH);
+  digitalWrite(ENB, HIGH);
+  // Adelante rueda derecha
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  // Adelante rueda izquierda
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
 }
 
 void Auto::Atras(){
-  //Direccion motor A
-  digitalWrite (IN1, LOW);
-  digitalWrite (IN2, HIGH);
-  analogWrite (ENA, 128);  //Velocidad motor A
-  //Direccion motor B
-  digitalWrite (IN3, LOW);
-  digitalWrite (IN4, HIGH);
-  analogWrite (ENB, 128); //Velocidad motor B
+  Serial.println("Atras");
+  digitalWrite(ENA, HIGH);
+  digitalWrite(ENB, HIGH);
+  // Atras rueda derecha
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  // Atras rueda izquierda
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+
 }
 
 void Auto::Detener(){
-  //Direccion motor A
-  digitalWrite (IN1, LOW);
-  digitalWrite (IN2, LOW);
-  analogWrite (ENA, 0); //Velocidad motor A
-  //Direccion motor B
-  digitalWrite (IN3, LOW);
-  digitalWrite (IN4, LOW);
-  analogWrite (ENB, 0); //Velocidad motor A
+  Serial.println("Detener");
+  digitalWrite(ENA, LOW);
+  digitalWrite(ENB, LOW);
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+
 }
 
 void Auto::Girar(){
-  //Direccion motor A
-  digitalWrite (IN1, LOW);
-  digitalWrite (IN2, LOW);
-  analogWrite (ENA, 32); //Velocidad motor A
-  //Direccion motor B
-  digitalWrite (IN3, LOW);
-  digitalWrite (IN4, LOW);
-  analogWrite (ENB, 127); //Velocidad motor A
+  Serial.println("Girar");
+  digitalWrite(ENA, HIGH);
+  digitalWrite(ENB, HIGH);
+  // Atras rueda derecha
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  // Adelante rueda izquierda
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
 }
-
+/*
 void Auto::Volver(){
+  Serial.println("Volver");
   this->Detener();
   this->Atras();
   delay(2000);
   this->Detener();
 }
 
-/*
 void Derecha(){
   Serial.println("Derecha");
   //Direccion motor A

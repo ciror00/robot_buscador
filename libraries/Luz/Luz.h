@@ -4,7 +4,8 @@
 
 class Luz{
   int pin;
-  
+  int value;
+
   public:
     Luz() = default;
     void begin(const int pin);
