@@ -20,21 +20,24 @@ void setup(){
 }
 
 void loop(){
-  subscripcion = (int)operador.LeerDatoEnMemoria(0);
   //Ests lineas solo se ejecutan despues de retirar un objeto
   if(!postSet){
+    Serial.println("Iniciando modo busqueda.");
     linea = infrarojo.Detectar();
     autito.Girar();
     postSet = true;
   }
-  if(subscripcion == 1){
+  // Esto solo se ejecuta con habilitado desde Mosquitto
+  if(subscripcion == 0){
+    medida = distancias.Medicion();
+    sprintf(distancia, "%d cm", medida); Serial.println(distancia);
+  }else{
+    Serial.println("Busqueda detenida");
     autito.Detener();
-    Serial.println("Robot detenido.");
   }
   // Solo estas lineas se deben ejecutar constantemente
-  medida = distancias.Medicion();
-  sprintf(distancia, "%d cm", medida); Serial.println(distancia);
   mqtt.Reconectar(topic_subscribe);
+  subscripcion = operador.LeerDatoEnMemoria(0);
   // A partir de aca, solo se ejecuta cuando hay un objeto
   if(medida < 10){
     autito.Detener();
@@ -43,7 +46,7 @@ void loop(){
     autito.Adelante();
     while(linea == true){
       linea = infrarojo.Detectar();
-      delay(1000);
+      delay(500);
     }
     autito.Detener();
     delay(500);
