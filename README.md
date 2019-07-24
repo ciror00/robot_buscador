@@ -33,6 +33,7 @@ Proyecto de robótica educativa con sensores y actuadores
 
 	mosquitto_sub -h BROKER -t TOPIC
 	
-	Ejemplo:mosquitto_sub -h localhost -t servidor/publicaciones
-	        mosquitto_pub -h localhost -t servidor/notificaciones -m "Mensaje desde Putty"
-          mosquitto_pub -h localhost -t servidor/notificaciones -m 0
+#### Ejemplo:
+	mosquitto_sub -h localhost -t servidor/publicaciones
+	mosquitto_pub -h localhost -t servidor/notificaciones -m "Mensaje desde Putty"
+        mosquitto_pub -h localhost -t servidor/notificaciones -m 0
