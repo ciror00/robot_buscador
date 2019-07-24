@@ -4,6 +4,7 @@
 //#include <WiFi.h>
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
+#include "Operador.h"
 
 
 class MQTT{
@@ -19,6 +20,8 @@ class MQTT{
   long lastMsg = 0;
   char msg[50];
 
+  bool flag_callback;
+
 public:
     MQTT() = default;
     void begin(char* ssid, char* password, char* mqtt);
@@ -28,5 +31,7 @@ public:
     void Suscribir(char* topic);
     ~MQTT() = default;
 };
+
+void Callback(char* topic, byte* payload, unsigned int length);
 
 #endif
