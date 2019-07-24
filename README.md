@@ -3,7 +3,7 @@ Proyecto de robótica educativa con sensores y actuadores
 
 ## Tutorial MQTT
 
-###Instalaciones
+### Instalaciones
 
 	descargar la signing key o clave de firma utilizando el comando wget
 	sudo wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
@@ -29,7 +29,7 @@ Proyecto de robótica educativa con sensores y actuadores
 	Instalamos el cliente
 	apt-get install mosquitto-clients
 	
-###Comandos basicos
+### Comandos basicos
 
 	mosquitto_sub -h BROKER -t TOPIC
 	
