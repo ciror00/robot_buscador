@@ -16,6 +16,7 @@
 #include "Distancia.h"
 #include "Luz.h"
 #include "MQTT.h"
+#include "Operador.h"
 
 // Motor A
 const int ENA = D8;
@@ -32,16 +33,18 @@ const int echo = D1;
 
 const int luz = D2;
 
-char* red = "";
-char* pass = "";
-char* server = "";
+// Se tiene que descomentar y cargar con los datos correspondientes.
+//char* red = "";
+//char* pass = "";
+//char* server = "";
 
 char* topic_root = "servidor";
 char* topic_publish = "servidor/publicaciones";
 char* topic_subscribe = "servidor/notificaciones";
 
 long medida;
-
 char distancia[7];
-
 boolean linea;
+boolean subscripcion;
+boolean postSet = false;
+int contador = 0;

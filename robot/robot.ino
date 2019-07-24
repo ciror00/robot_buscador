@@ -1,9 +1,11 @@
 #include "robot.h"
+#include "server.h" // Se agrega esta linea para datos de ssidd, password y servidor MQTT
 
 Auto autito;
 Distancia distancias;
 MQTT mqtt;
 Luz infrarojo;
+Operador operador;
 
 void setup(){
   Serial.begin(115200);
@@ -12,14 +14,28 @@ void setup(){
   infrarojo.begin(luz);
   mqtt.begin(red, pass, server);
   mqtt.IP();
-  mqtt.Reconectar(topic_root);
-  //mqtt.Publicar("Hola mundo");
+  mqtt.Reconectar(topic_subscribe);
+  mqtt.Suscribir(topic_subscribe);
+  operador.begin();
 }
 
 void loop(){
-  linea = infrarojo.Detectar();
+  subscripcion = (int)operador.LeerDatoEnMemoria(0);
+  //Ests lineas solo se ejecutan despues de retirar un objeto
+  if(!postSet){
+    linea = infrarojo.Detectar();
+    autito.Girar();
+    postSet = true;
+  }
+  if(subscripcion == 1){
+    autito.Detener();
+    Serial.println("Robot detenido.");
+  }
+  // Solo estas lineas se deben ejecutar constantemente
   medida = distancias.Medicion();
   sprintf(distancia, "%d cm", medida); Serial.println(distancia);
+  mqtt.Reconectar(topic_subscribe);
+  // A partir de aca, solo se ejecuta cuando hay un objeto
   if(medida < 10){
     autito.Detener();
     Serial.println("Objeto detectado. Avanzando");
@@ -29,16 +45,15 @@ void loop(){
       linea = infrarojo.Detectar();
       delay(1000);
     }
-    delay(1000);
     autito.Detener();
-    delay(1000);
+    delay(500);
     autito.Atras();
-    delay(2000);
+    delay(500);
     autito.Detener();
     Serial.println("Objeto quitado. Publicando");
-    mqtt.Reconectar(topic_root);
     mqtt.Publicar(topic_publish, "Objeto quitado");
-    delay(2000);
-    autito.Girar();
+    Serial.println("Nueva busqueda.");
+    postSet = false;
+    delay(500);
   }
 }
