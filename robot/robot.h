@@ -44,7 +44,9 @@ char* topic_subscribe = "servidor/notificaciones";
 
 long medida;
 char distancia[7];
+int distancia_minima = 15;
 boolean linea;
-boolean subscripcion;
+byte subscripcion = 0;
 boolean postSet = false;
+boolean emergencyMode = false;
 int contador = 0;
