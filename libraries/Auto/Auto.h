@@ -1,6 +1,11 @@
 #ifndef __AUTO__h__
 #define __AUTO__h__
 
+enum Velocidad{
+    PARADO,
+    LENTO = 767,
+    RAPIDO = 1023
+};
 
 class Auto{
   // Motor Derecho
