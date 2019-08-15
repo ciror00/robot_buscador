@@ -10,4 +10,4 @@ El robot cuenta con la placa de desarrollo [NodeMCU](https://www.handsontec.com/
 
 ## Imagenes
 
-![](https://github.com/ciror00/robot_buscador/blob/master/documentation/images/robot_circulo_03.jpg =100x20)
+![](https://github.com/ciror00/robot_buscador/blob/master/documentation/images/robot_circulo_03.jpg | width=100)
