@@ -1,40 +1,9 @@
 # Robot Buscador
-Proyecto de robótica educativa con sensores y actuadores
 
-## Tutorial MQTT
+Proyecto de robótica educativa
 
-### Instalaciones
+## Descripcion general
 
-	descargar la signing key o clave de firma utilizando el comando wget
-	sudo wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
-
-	Añadimos la clave para a una lista para autenticar el paquete
-	sudo apt-key add mosquitto-repo.gpg.key
-
-	Acceder a a la carpeta
-	cd /etc/apt/sources.list.d/
-	
-	descargamos la lista de repositorios (segun version)
-	sudo wget http://repo.mosquitto.org/debian/mosquitto-jessie.list
-	
-	Para ser usuario root
-	sudo -i
-	
-	Actualizamos
-	apt-get update
-	
-	Instalamos el Broken
-	apt-get install mosquitto
-	
-	Instalamos el cliente
-	apt-get install mosquitto-clients
-	
-### Comandos basicos
-
-	mosquitto_sub -h BROKER -t TOPIC
-	
-#### Ejemplo:
-
-	mosquitto_sub -h localhost -t servidor/publicaciones
-	mosquitto_pub -h localhost -t servidor/notificaciones -m "Mensaje desde Putty"
-        mosquitto_pub -h localhost -t servidor/notificaciones -m 0
+El robot se desplaza por medio de dos ruedas, cada una conectada a un reductor de velocidad impulsado por un motor de corriente continua. Al mismo tiempo, mantiene el equilibrio a traves de un tercer pie formando un triangulo en la base. Este pie, tambien cuenta con un [sensor de siguimiento de linea](http://sensorkit.en.joy-it.net/index.php?title=KY-033_Tracking_sensor_module), tambien conocido como sensor blanco-negro.
+En el frente del chasis, el robot cuenta con un [sensor de ultrasonido](https://cdn.sparkfun.com/datasheets/Sensors/Proximity/HCSR04.pdf) con direccion perpendicular.
+El robot cuenta con la placa de desarrollo [NodeMCU](https://www.handsontec.com/pdf_learn/esp8266-V10.pdf) como controlador del equipo al igual que un [puente H](http://www.handsontec.com/dataspecs/L298N%20Motor%20Driver.pdf) como driver de los motores.
