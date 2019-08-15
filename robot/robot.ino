@@ -55,12 +55,12 @@ void loop(){
       }
       autito.Detener();
       mqtt.Publicar(topic_buscador, "Objeto quitado");
+      delay(250);
+      autito.Atras();
     }else{
       Serial.println("Objeto importante en plataforma.");
       mqtt.Publicar(topic_buscador, "Objeto importante en plataforma");
     }
-    delay(250);
-    autito.Atras();
     delay(2000);
     autito.Detener();
     Serial.println("Nueva busqueda.");
