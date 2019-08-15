@@ -38,15 +38,21 @@ const int luz = D2;
 //char* pass = "";
 //char* server = "";
 
-char* topic_root = "servidor";
-char* topic_publish = "servidor/publicaciones";
-char* topic_subscribe = "servidor/notificaciones";
+//char* topic_publish = "servidor/publicaciones";
+//char* topic_subscribe = "servidor/notificaciones";
+
+char* topic_buscador = "planta/circulo/topadora/buscador";
+char* topic_emergencia = "planta/detectores/humo";
+char* topic_rfid = "planta/circulo/rfid/autorizacion";
 
 long medida;
 char distancia[7];
 int distancia_minima = 15;
 boolean linea;
-byte subscripcion = 0;
 boolean postSet = false;
-boolean emergencyMode = false;
+byte emergency = 0;
+//boolean emergencyMode = false;
+
+byte knownObject = 0;
+//boolean knownObjectMode = false;
 int contador = 0;

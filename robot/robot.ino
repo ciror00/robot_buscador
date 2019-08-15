@@ -14,50 +14,61 @@ void setup(){
   infrarojo.begin(luz);
   mqtt.begin(red, pass, server);
   mqtt.IP();
-  mqtt.Reconectar(topic_subscribe);
-  mqtt.Suscribir(topic_subscribe);
+  mqtt.Reconectar(topic_emergencia);
+  mqtt.Suscribir(topic_emergencia);
+  mqtt.Suscribir(topic_rfid);
   operador.begin();
 }
 
 void loop(){
   // Esto solo se ejecuta con habilitado desde Mosquitto
-  if(subscripcion == 0){
+  if(emergency == 0){
     //Ests lineas solo se ejecutan despues de retirar un objeto
     if(!postSet){
       Serial.println("Iniciando modo busqueda.");
-      linea = infrarojo.Detectar();
+      mqtt.Publicar(topic_buscador, "Buscando objetos en plataforma.");
       autito.Girar();
       postSet = true;
     }
     medida = distancias.Medicion();
+    linea = infrarojo.Detectar();
     sprintf(distancia, "%d cm", medida); Serial.println(distancia);
   }else{
     Serial.println("Busqueda detenida");
-    autito.Detener();
-    postSet = false;
-  }
-  // Solo estas lineas se deben ejecutar constantemente
-  mqtt.Reconectar(topic_subscribe);
-  subscripcion = operador.LeerDatoEnMemoria(0);
-  // A partir de aca, solo se ejecuta cuando hay un objeto
-  if(medida < distancia_minima && subscripcion == 0){
-    autito.Detener();
-    Serial.println("Objeto detectado. Avanzando");
-    delay(2000);
-    autito.Adelante();
-    while(linea == false){
-      linea = infrarojo.Detectar();
-      delay(500);
+    if(postSet){
+      mqtt.Publicar(topic_buscador, "Robot detenido.");
+      autito.Detener();
+      postSet = false;
     }
+  }
+  // A partir de aca, solo se ejecuta cuando hay un objeto
+  if(medida < distancia_minima && emergency == 0){
+    mqtt.Publicar(topic_buscador, "Objeto encontrado en plataforma.");
     autito.Detener();
-    delay(500);
+    if(knownObject == 0){
+      Serial.println("Objeto encontrado. Avanzando para quitar objeto.");
+      delay(2000);
+      autito.Adelante();
+      while(linea == false){
+        linea = infrarojo.Detectar();
+        delay(250);
+      }
+      autito.Detener();
+      mqtt.Publicar(topic_buscador, "Objeto quitado");
+    }else{
+      Serial.println("Objeto importante en plataforma.");
+      mqtt.Publicar(topic_buscador, "Objeto importante en plataforma");
+    }
+    delay(250);
     autito.Atras();
-    delay(500);
+    delay(2000);
     autito.Detener();
-    Serial.println("Objeto quitado. Publicando");
-    mqtt.Publicar(topic_publish, "Objeto quitado");
     Serial.println("Nueva busqueda.");
     postSet = false;
     delay(500);
   }
+  // Solo estas lineas se deben ejecutar constantemente
+  mqtt.Reconectar(topic_emergencia);
+  emergency = operador.LeerDatoEnMemoria(0);
+  knownObject = operador.LeerDatoEnMemoria(1);
 }
