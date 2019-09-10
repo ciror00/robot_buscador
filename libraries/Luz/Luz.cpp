@@ -9,11 +9,11 @@ void Luz::begin(const int pin){
 boolean Luz::Detectar(){
   this->value = digitalRead(this->pin);
   if (this->value == HIGH) {
-    Serial.println("Luz TRUE");
-    return true;
-  }else{
-    Serial.println("Luz FALSE");
+    Serial.println("Fondo Negro");
     return false;
+  }else{
+    Serial.println("Fondo Blanco");
+    return true;
   }
   delay(1000);
 }

@@ -81,20 +81,26 @@ void MQTT::Suscribir(char* topic){
 void Callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Mensaje recibido de ");
   Serial.print(topic);
-  Serial.print(". \t");
-  char msj = (char)payload[0];
-  //Serial.print(msj);
+  char msj = (char)payload[0]; Serial.println(msj);
+  //char tp = (char)topic[20]; Serial.println(tp);
   Operador operador;
   if (msj == '1') {
-    Serial.println("Valor 1");
+    Serial.println("Emergencia.");
     operador.GuardarDatoEnMemoria(0, 1);
   } else if(msj == '0'){
-    Serial.println("Valor 0");
+    Serial.println("Normal.");
     operador.GuardarDatoEnMemoria(0, 0);
-  } else {
+  } else if(msj == '2'){
+    Serial.println("Obstaculo desconocido.");
+    operador.GuardarDatoEnMemoria(1, 0);
+  } else if(msj == '3'){
+    Serial.println("Producto conocido");
+    operador.GuardarDatoEnMemoria(1, 1);
+  }
+  /*{
     for (int i = 0 ; i < length ; i++) {
       Serial.print((char)payload[i]);
     }
     Serial.println();
-  }
+    */
 }
