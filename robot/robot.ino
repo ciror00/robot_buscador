@@ -14,10 +14,12 @@ void setup(){
   infrarojo.begin(luz);
   mqtt.begin(red, pass, server);
   mqtt.IP();
-  mqtt.Reconectar(topic_emergencia);
-  mqtt.Suscribir(topic_emergencia);
+  mqtt.Reconectar(topic_estado);
+  mqtt.Suscribir(topic_estado);
   mqtt.Suscribir(topic_rfid);
   operador.begin();
+  // Primer mensaje del robot
+  mqtt.Publicar(topic_buscador, "Robot topadora configurado.");
 }
 
 void loop(){
@@ -61,14 +63,14 @@ void loop(){
       Serial.println("Objeto importante en plataforma.");
       mqtt.Publicar(topic_buscador, "Objeto importante en plataforma");
     }
-    delay(2000);
+    delay(5000);
     autito.Detener();
     Serial.println("Nueva busqueda.");
     postSet = false;
     delay(500);
   }
   // Solo estas lineas se deben ejecutar constantemente
-  mqtt.Reconectar(topic_emergencia);
+  mqtt.Reconectar(topic_estado);
   emergency = operador.LeerDatoEnMemoria(0);
   knownObject = operador.LeerDatoEnMemoria(1);
 }

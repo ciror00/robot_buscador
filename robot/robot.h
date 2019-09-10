@@ -38,12 +38,9 @@ const int luz = D2;
 //char* pass = "";
 //char* server = "";
 
-//char* topic_publish = "servidor/publicaciones";
-//char* topic_subscribe = "servidor/notificaciones";
-
 char* topic_buscador = "planta/circulo/topadora/buscador";
-char* topic_emergencia = "planta/detectores/humo";
 char* topic_rfid = "planta/circulo/rfid/autorizacion";
+char* topic_estado = "planta/circulo/topadora/estado";
 
 long medida;
 char distancia[7];
